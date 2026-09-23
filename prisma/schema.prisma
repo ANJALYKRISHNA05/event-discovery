@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String
+  industry    String
+  startDate   DateTime
+  endDate     DateTime
+  venue       String
+  city        String
+  country     String
+  organizer   String
+  website     String
+  image       String
+  status      String   @default("UPCOMING") // UPCOMING, ONGOING, COMPLETED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([industry])
+  @@index([city])
+  @@index([country])
+  @@index([status])
+  @@index([startDate])
+}
